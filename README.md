@@ -58,14 +58,28 @@ python RNN.py
 
 Japanese GPT2 fake news detection
 ===
-
-
-Reference
-===
-[train data](<https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification/data>) 
-
-[test data](<https://www.kaggle.com/c/fake-news/overview/description>) 
-
-[japanese dataset](<https://github.com/tanreinama/Japanese-Fakenews-Dataset>) 
-
-[text classification repo on huggingface](<https://github.com/huggingface/transformers/blob/main/examples/pytorch/text-classification>)
+## prepare dataset
+split the dataset into 10000 news and 3000 news
+```bash
+python split.py
+```
+preparing for three cases 
+1. label 0, 1 regarded as true and 2 regarded as fake 
+2. label 0 regarded as true and 1, 2 regarded as fake 
+3. original label 0, 1, 2
+```bash
+python label_012.py
+```
+run run_classification.py for all three cases \
+case 1(label 0, 1 regarded as true and 2 regarded as fake)
+```bash
+python run_classification.py --model_name_or_path ku-nlp/bart-base-japanese --train_file news_tm_10000.csv --validation_file news_tm_3000.csv --metric_name accuracy --text_column_name "context" --text_column_delimiter "," --label_column_name isfake --do_train --do_eval --max_seq_length 512 --per_device_train_batch_size 4 --learning_rate 2e-5 --num_train_epochs 1 --output_dir news_tm/
+```
+case 2(label 0 regarded as true and 1, 2 regarded as fake)
+```bash
+python run_classification.py --model_name_or_path ku-nlp/bart-base-japanese --train_file news_fm_10000.csv --validation_file news_fm_3000.csv --metric_name accuracy --text_column_name "context" --text_column_delimiter "," --label_column_name isfake --do_train --do_eval --max_seq_length 512 --per_device_train_batch_size 4 --learning_rate 2e-5 --num_train_epochs 1 --output_dir news_fm/
+```
+case 3(original label 0, 1, 2)
+```bash
+python run_classification.py --model_name_or_path ku-nlp/bart-base-japanese --train_file news_10000.csv --validation_file news_3000.csv --metric_name accuracy --text_column_name "context" --text_column_delimiter "," --label_column_name isfake --do_train --do_eval --max_seq_length 512 --per_device_train_batch_size 4 --learning_rate 2e-5 --num_train_epochs 1 --output_dir news/
+```

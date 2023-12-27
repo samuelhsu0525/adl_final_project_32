@@ -58,3 +58,14 @@ python RNN.py
 
 Japanese GPT2 fake news detection
 ===
+
+
+Reference
+===
+[train data](<https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification/data>) 
+
+[test data](<https://www.kaggle.com/c/fake-news/overview/description>) 
+
+[japanese dataset](<https://github.com/tanreinama/Japanese-Fakenews-Dataset>) 
+
+[text classification repo on huggingface](<https://github.com/huggingface/transformers/blob/main/examples/pytorch/text-classification>)
